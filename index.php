@@ -105,10 +105,9 @@ if (!empty($token)) {
 				$push_result["send_result"] = sendToServer('https://fcm.googleapis.com/fcm/send', $data, $authKey);
 				break;
 			default:
-			getPushData($type, $token, $inputJson);
-//			$push_result =  sendToServer('https://fcm.googleapis.com/fcm/send', getPushData($type, $token, $inputJson),
-//                $authKey
-//			);
+			$push_result =  sendToServer('https://fcm.googleapis.com/fcm/send', getPushData($type, $token, $inputJson),
+                $authKey
+			);
 			break;
 		}
 	  	
@@ -219,9 +218,10 @@ function sendToServer($url, $fields, $authKey) {
 							<div class="col-12 form-group row">
 								<label class="col-sm-2 col-form-label" for="push-notification-type">推播內容：</label>
 								<div class="col-sm-10">
-									<textarea class="form-control" name="push-json" placeholder="請輸入推播內容" rows="4" cols="50"><?php echo !empty($inputJson) ? print_r($inputJson) : '';?></textarea>
+									<textarea class="form-control" name="push-json" placeholder="請輸入推播內容(請輸入物件，內容一定要有 title, message 兩個 key 值)" rows="4" cols="50"><?php echo !empty($inputJson) ? print_r($inputJson) : '';?></textarea>
 								</div>
 							</div>
+							
 						</div>
 						<div class="form-group text-right">
 							<button type="submit" class="btn btn-primary">送出</button>
