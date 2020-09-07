@@ -144,7 +144,7 @@ function getPushData($type, $token, $inputJson) {
 
 function sendToServer($url, $fields, $authKey) {
 	$fields = json_encode ( $fields );
-
+	
 	$headers = array (
 		'Authorization: key=' . $authKey,
 		'Content-Type: application/json'
@@ -218,7 +218,7 @@ function sendToServer($url, $fields, $authKey) {
 							<div class="col-12 form-group row">
 								<label class="col-sm-2 col-form-label" for="push-notification-type">推播內容：</label>
 								<div class="col-sm-10">
-									<textarea class="form-control" name="push-json" placeholder="請輸入推播內容(請輸入物件，內容一定要有 title, message 兩個 key 值)" rows="4" cols="50"><?php echo !empty($inputJson) ? print_r($inputJson) : '';?></textarea>
+									<textarea class="form-control" name="push-json" placeholder="請輸入推播內容(請輸入物件，內容一定要有 title, message 兩個 key 值)" rows="4" cols="50"><?php echo !empty($inputJson) ? $inputJson : '';?></textarea>
 								</div>
 							</div>
 							
