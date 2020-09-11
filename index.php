@@ -108,7 +108,8 @@ if (!empty($token)) {
 				$push_result["send_result"] = sendToServer('https://fcm.googleapis.com/fcm/send', $data, $authKey);
 				break;
 			default:
-			$push_result =  sendToServer('https://fcm.googleapis.com/fcm/send', getPushData($type, $token, $inputJson, $fcmOptions),
+			$send_data = getPushData($type, $token, $inputJson, $fcmOptions);
+			$push_result =  sendToServer('https://fcm.googleapis.com/fcm/send', $send_data,
                 $authKey
 			);
 			break;
@@ -146,14 +147,12 @@ function getPushData($type, $token, $inputJson, $fcmOptions) {
 		$jsonData['fcm_options'] = $fcmOptions;
 	}
 	
-	$send_data = $jsonData;
-
 	return $jsonData;
 }
 
 function sendToServer($url, $fields, $authKey) {
 	$fields = json_encode ( $fields );
-	
+			
 	$headers = array (
 		'Authorization: key=' . $authKey,
 		'Content-Type: application/json'
@@ -233,7 +232,7 @@ function sendToServer($url, $fields, $authKey) {
 							<div class="col-12 form-group row">
 								<label class="col-sm-2 col-form-label" for="push-notification-type">FCM OPTIONS：</label>
 								<div class="col-sm-10">
-									<textarea class="form-control" name="fcm-option" placeholder="Fcm Options" rows="4" cols="50"><?php echo !empty($send_data) ? $send_data : '';?></textarea>
+									<textarea class="form-control" name="fcm-option" placeholder="Fcm Options" rows="4" cols="50"><?php echo !empty($fcmOptions) ? $fcmOptions : '';?></textarea>
 								</div>
 							</div>
 						</div>
@@ -249,10 +248,15 @@ function sendToServer($url, $fields, $authKey) {
 									<h6 class="mb-0">傳送結果</h6>
 								</div>
 								<div class="card-body">
-									<?php print_r($push_result);?>
-									<?php
-										!empty($send_data) && print_r($send_data);
-									?>
+									<div>
+										<?php print_r($push_result);?>
+									</div>
+									<hr>
+									<div>
+										<?php
+											!empty($send_data) && print_r($send_data);
+										?>
+									</div>
 								</div>
 							</div>
 						<?php
