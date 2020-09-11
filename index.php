@@ -11,14 +11,17 @@ $platform = 'FCM';
 $type = '';
 $authKey = '';
 $inputJson = '';
+$fcmOptions = '';
 
 if (!empty($_POST)) {
 	$token = $_POST['device-token'];
 	$type = $_POST['push-notification-type'];
 	$authKey = $_POST['push-notification-server-key'];
 	$inputJson = !empty($_POST['push-json']) ? $_POST['push-json'] : '';
+	$fcmOptions = !empty($_POST['fcm-option']) ? $_POST['fcm-option'] : '';
 }
 $push_result = null;
+$send_data = '';
 
 if (!empty($token)) {
 	switch ($platform) {
@@ -105,7 +108,7 @@ if (!empty($token)) {
 				$push_result["send_result"] = sendToServer('https://fcm.googleapis.com/fcm/send', $data, $authKey);
 				break;
 			default:
-			$push_result =  sendToServer('https://fcm.googleapis.com/fcm/send', getPushData($type, $token, $inputJson),
+			$push_result =  sendToServer('https://fcm.googleapis.com/fcm/send', getPushData($type, $token, $inputJson, $fcmOptions),
                 $authKey
 			);
 			break;
@@ -115,7 +118,7 @@ if (!empty($token)) {
 	}
 }
 
-function getPushData($type, $token, $inputJson) {
+function getPushData($type, $token, $inputJson, $fcmOptions) {
 	$jsonData = [
 		'to' => $token,
 		'notification' => array (
@@ -131,7 +134,7 @@ function getPushData($type, $token, $inputJson) {
 		),
 		"priority" => 'high'
 	];
-
+	
 	if (!empty($inputJson)) {
 		$inputData = !empty($inputJson) ? json_decode($inputJson, true) : '';
 		$jsonData['notification']['title'] = $inputData['title'];
@@ -139,6 +142,12 @@ function getPushData($type, $token, $inputJson) {
 		$jsonData['data'] = $inputData;
 	}
 	
+	if (!empty($fcmOptions)) {
+		$jsonData['fcm_options'] = $fcmOptions;
+	}
+	
+	$send_data = $jsonData;
+
 	return $jsonData;
 }
 
@@ -221,7 +230,12 @@ function sendToServer($url, $fields, $authKey) {
 									<textarea class="form-control" name="push-json" placeholder="請輸入推播內容(請輸入物件，內容一定要有 title, message 兩個 key 值)" rows="4" cols="50"><?php echo !empty($inputJson) ? $inputJson : '';?></textarea>
 								</div>
 							</div>
-							
+							<div class="col-12 form-group row">
+								<label class="col-sm-2 col-form-label" for="push-notification-type">FCM OPTIONS：</label>
+								<div class="col-sm-10">
+									<textarea class="form-control" name="fcm-options" placeholder="Fcm Options" rows="4" cols="50"><?php echo !empty($fcmOptions) ? $fcmOptions : '';?></textarea>
+								</div>
+							</div>
 						</div>
 						<div class="form-group text-right">
 							<button type="submit" class="btn btn-primary">送出</button>
@@ -236,6 +250,9 @@ function sendToServer($url, $fields, $authKey) {
 								</div>
 								<div class="card-body">
 									<?php print_r($push_result);?>
+									<?php
+										!empty($send_data) && print_r($send_data);
+									?>
 								</div>
 							</div>
 						<?php
