@@ -233,7 +233,7 @@ function sendToServer($url, $fields, $authKey) {
 							<div class="col-12 form-group row">
 								<label class="col-sm-2 col-form-label" for="push-notification-type">FCM OPTIONS：</label>
 								<div class="col-sm-10">
-									<textarea class="form-control" name="fcm-options" placeholder="Fcm Options" rows="4" cols="50"><?php echo !empty($fcmOptions) ? $fcmOptions : '';?></textarea>
+									<textarea class="form-control" name="fcm-option" placeholder="Fcm Options" rows="4" cols="50"><?php echo !empty($send_data) ? $send_data : '';?></textarea>
 								</div>
 							</div>
 						</div>
