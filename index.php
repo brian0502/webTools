@@ -103,7 +103,7 @@ function getPushData($type, $token, $inputJson, $fcmOptions) {
 	$jsonData = [
 		'to' => $token,
 		'notification' => array (
-			"title" => "測試 mutable_content true/ content_available false",
+			"title" => "測試 mutable_content true/ content_available true",
 			"body" => "推播內文"
 		),
 		'data' => array (
@@ -115,7 +115,7 @@ function getPushData($type, $token, $inputJson, $fcmOptions) {
 		),
 		"priority" => 'high',
 		"mutable_content" => true,
-	    "content_available" => false
+	    "content_available" => true
 	];
 	
 	if (!empty($inputJson)) {
