@@ -123,17 +123,19 @@ function getPushData($type, $token, $inputJson, $fcmOptions) {
 	$jsonData = [
 		'to' => $token,
 		'notification' => array (
-			"title" => "預設測試推播標題",
-			"body" => "<p>預設測試推播內文。<br />預設測試推播內文2。</p>"
+			"title" => "測試 mutable_content / content_available",
+			"body" => "推播內文"
 		),
 		'data' => array (
-			"message" => '<p>預設測試推播內文。<br />預設測試推播內文2。</p>',
-			"title" => '預設測試推播標題：'.date('Y-m-d H:i:s'),
+			"message" => "推播內文",
+			"title" => "測試 mutable_content / content_available",
 			"url" => 'https://24h.m.pchome.com.tw/',
 			"click_url" => 'https://ecvip.pchome.com.tw/emon/v1/utm.htm%3Fid%3D000000000a%26action%3Dclick%26v%3Dmobile%26desc%3D%E6%8E%A8%E6%92%AD%E9%BB%9E%E6%93%8A%E6%95%B8-%E8%A8%82%E5%96%AE%E9%80%9A%E7%9F%A5',
 			"badge" => 99,
 		),
-		"priority" => 'high'
+		"priority" => 'high',
+		"mutable_content" => true,
+	    "content_available" => true
 	];
 	
 	if (!empty($inputJson)) {
@@ -152,7 +154,7 @@ function getPushData($type, $token, $inputJson, $fcmOptions) {
 
 function sendToServer($url, $fields, $authKey) {
 	$fields = json_encode ( $fields );
-			
+	
 	$headers = array (
 		'Authorization: key=' . $authKey,
 		'Content-Type: application/json'
