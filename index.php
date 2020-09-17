@@ -103,19 +103,19 @@ function getPushData($type, $token, $inputJson, $fcmOptions) {
 	$jsonData = [
 		'to' => $token,
 		'notification' => array (
-			"title" => "測試 mutable_content true/ content_available false",
+			"title" => "測試測試測測測",
 			"body" => "推播內文"
 		),
 		'data' => array (
 			"message" => "推播內文",
-			"title" => "測試 mutable_content / content_available",
+			"title" => "測試測試測測測",
 			"url" => 'https://24h.m.pchome.com.tw/',
 			"click_url" => 'https://ecvip.pchome.com.tw/emon/v1/utm.htm%3Fid%3D000000000a%26action%3Dclick%26v%3Dmobile%26desc%3D%E6%8E%A8%E6%92%AD%E9%BB%9E%E6%93%8A%E6%95%B8-%E8%A8%82%E5%96%AE%E9%80%9A%E7%9F%A5',
 			"badge" => 99,
 		),
 		"priority" => 'high',
 		"mutable_content" => true,
-	    "content_available" => false
+	    "content_available" => true
 	];
 	
 	if (!empty($inputJson)) {
