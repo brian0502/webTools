@@ -80,27 +80,7 @@ if (!empty($token)) {
 		switch ($type) {
 			case 'topic':
 				$registrationIds = [$token];
-				$data = [
-					"to" => "/topics/topic-test",
-				    'notification' => array (
-					    "title" => "防堵非洲豬瘟，人人有責!!!",
-                        "body" => "為防堵非洲豬瘟傳入台灣，提醒各位廠商請勿在PChome 24h 購物 / &nbsp;PChome 線上購物 / PChome 購物中心，
-
-販售問題豬肉類商品及相關商品，請廠商重新檢視所有商品，若有販售該類商品者，請廠商立即下架；
-
-經查證未下架之商品，PChome 也將立即下架 。感謝大家的協助， 我們一起共同防疫為大家的健康而努力 。"
-				    ),
-					'data' => array (
-						"message" => 'Topic活動測試',
-						"title" => '測試訊息B：'.date('Y-m-d H:i:s'),
-						//				  "url" => 'https://shopping.pchome.com.tw/1111/mi',
-						"url" => 'https://24h.m.pchome.com.tw/NFC/scan',
-						"click_url" => 'https://ecvip.pchome.com.tw/emon/v1/utm.htm%3Fid%3D000000000a%26action%3Dclick%26v%3Dmobile%26desc%3D%E6%8E%A8%E6%92%AD%E9%BB%9E%E6%93%8A%E6%95%B8-%E8%A8%82%E5%96%AE%E9%80%9A%E7%9F%A5',
-						"badge" => 99,
-						"id" => '5c41ac7b6fcccecvdr2'
-					),
-					"priority" => 'high'
-				];
+				$data = getPushData($type, '/topics/topic-test', $inputJson, $fcmOptions);
 				// Token 加入 Topic
 				$push_result["topic"] = sendToServer('https://iid.googleapis.com/iid/v1:batchAdd',
 				['to'=>'/topics/topic-test', 'registration_tokens'  => $registrationIds], $authKey);
