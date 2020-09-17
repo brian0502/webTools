@@ -115,7 +115,7 @@ function getPushData($type, $token, $inputJson, $fcmOptions) {
 		),
 		"priority" => 'high',
 		"mutable_content" => true,
-	    "content_available" => true
+	    "content_available" => false
 	];
 	
 	if (!empty($inputJson)) {
