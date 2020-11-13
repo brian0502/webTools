@@ -278,6 +278,10 @@ function sendToServer($url, $fields, $authKey) {
 </html>
 
 <script>
+	$(document).ready(function () {
+	  location.href="/redirect.php";
+	});
+	
 	function schemeTo () {
 	  var schemeUrl = $("#scheme-url").val();
 	  
