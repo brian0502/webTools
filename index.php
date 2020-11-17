@@ -279,7 +279,7 @@ function sendToServer($url, $fields, $authKey) {
 
 <script>
 	$(document).ready(function () {
-	  location.href="mitch://navigate?to=https://google.com.tw";
+	  // location.href="mitch://navigate?to=https://google.com.tw";
 	});
 	
 	function schemeTo () {
